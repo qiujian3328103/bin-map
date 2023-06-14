@@ -148,3 +148,36 @@ fig.update_layout(
 fig.update_yaxes(range=[0, 1], secondary_y=True)
 
 st.plotly_chart(fig, use_container_width=True, width=1000)
+
+
+
+
+###################################################################################################
+# Filter the dataframe for "PE HOLD"
+df_pe_hold = df[df['hold'] == 'PE HOLD']
+
+# Group by "product_id" and calculate the count
+df_count = df_pe_hold.groupby('product_id').size().reset_index(name='count')
+
+
+# Determine the number of columns and rows for the grid layout
+num_cols = 4
+num_rows = -(-len(df_count) // num_cols)  # Round up division
+
+# Create a grid layout for the card widgets
+grid = st.container()
+with grid:
+    st.markdown("---")
+    st.markdown('<h2 style="text-align: center;">Product ID and PE HOLD Counts</h2>', unsafe_allow_html=True)
+    for i in range(num_rows):
+        cols = st.columns(num_cols)
+        for j in range(num_cols):
+            index = i * num_cols + j
+            if index < len(df_count):
+                product_id = df_count.iloc[index]['product_id']
+                count = df_count.iloc[index]['count']
+                card_title = f"<h3 style='text-align: center;'>Product ID: {product_id}</h3>"
+                card_text = f"<p style='text-align: center;'>Number of PE HOLD: {count}</p>"
+                cols[j].markdown(f'<div style="background-color: #F0E68C; padding: 10px; border-radius: 5px; margin-bottom: 10px;">{card_title}{card_text}</div>', unsafe_allow_html=True)
+                
+                
