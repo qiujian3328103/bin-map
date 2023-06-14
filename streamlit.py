@@ -160,8 +160,9 @@ df_pe_hold = df[df['hold'] == 'PE HOLD']
 df_count = df_pe_hold.groupby('product_id').size().reset_index(name='count')
 
 
+
 # Determine the number of columns and rows for the grid layout
-num_cols = 4
+num_cols = 6
 num_rows = -(-len(df_count) // num_cols)  # Round up division
 
 # Create a grid layout for the card widgets
@@ -176,8 +177,6 @@ with grid:
             if index < len(df_count):
                 product_id = df_count.iloc[index]['product_id']
                 count = df_count.iloc[index]['count']
-                card_title = f"<h3 style='text-align: center;'>Product ID: {product_id}</h3>"
-                card_text = f"<p style='text-align: center;'>Number of PE HOLD: {count}</p>"
+                card_title = f"<h3 style='text-align: center;color: black;'>{product_id}</h3>"
+                card_text = f"<p style='text-align: center;color: black;'>PE HOLD: {count}</p>"
                 cols[j].markdown(f'<div style="background-color: #F0E68C; padding: 10px; border-radius: 5px; margin-bottom: 10px;">{card_title}{card_text}</div>', unsafe_allow_html=True)
-                
-                
