@@ -9,34 +9,8 @@ from bokeh.models import ColumnDataSource, HoverTool, LinearAxis
 import streamlit as st 
 
 
-die_size = {
-  "ZB10717-1F":{
-    "Die_Size_X":6223,
-    "Die_Size_Y":5098
-  },
-  "ZB10717-2F":{
-    "Die_Size_X":6223,
-    "Die_Size_Y":5098
-  },
-  "ZB10820-1F":{
-    "Die_Size_X":3713.6,
-    "Die_Size_Y":4153.6
-  },
-  "ZB10897-1F":{
-    "Die_Size_X":6867.984,
-    "Die_Size_Y":4247.68
-  },
-  "10VEGA1":{
-    "Die_Size_X":19555.472,
-    "Die_Size_Y":26121.872
-  },
-  "KAMORTA":{
-    "Die_Size_X":7270.96,
-    "Die_Size_Y":6559.46
-  }
-}
 
-df_raw = pd.read_csv('ZB10820-1F.csv', index_col=False)
+df_raw = pd.read_csv('sample.csv', index_col=False)
 df = df_raw
 df = df_raw[df_raw["sort_test_flag"]=="T"]
 width = die_size["ZB10820-1F"]["Die_Size_X"]
