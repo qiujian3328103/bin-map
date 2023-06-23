@@ -1,0 +1,87 @@
+// Get the current data table
+dt = Current Data Table();
+
+// Get the column names
+columnNames = dt << Get Column Names(Include Hidden(0));
+
+// Create a column list box with search function
+columnListBox = JSL.NColListBox(
+    Size(250, 200),
+    items(columnNames),
+    searchBox(JSL.NSearchBox(Size(200, 30)))
+);
+
+// Create an input area for user data entry
+inputArea = JSL.HBox(
+    JSL.Label("Enter data (comma-separated):"),
+    JSL.TextArea("dataInput",
+        JSL.Size(200, 100),
+        JSL.MaxChars(256)
+    )
+);
+
+// Create a button to process the input
+processButton = JSL.ButtonBox(
+    "Process",
+    JSL.Action(
+        JSL.Function({},
+            // Get the selected column from the column list box
+            selectedColumn = columnListBox << getSelected;
+
+            // Get the input values
+            userInput = JSL.GetText(JSL.TextArea("dataInput"));
+
+            // Split the input values by commas
+            inputValues = JSL.Split(userInput, ",");
+
+            // Check if a column is selected
+            If(Is Missing(selectedColumn),
+                Throw("No column selected. Exiting script.")
+            );
+
+            // Create a new column for grouping
+            newColumnName = "Group";
+            dt << New Column(newColumnName, character, nominal);
+
+            // Loop through each row and mark the groups
+            For(i = 1, i <= N Rows(dt), i++,
+                If(JSL.Contains(inputValues, dt:column(selectedColumn)[i]),
+                    dt:column(newColumnName)[i] = "Group 1";
+                ,
+                    dt:column(newColumnName)[i] = "Group 2";
+                );
+            );
+
+            // Update the data table
+            dt << Update();
+
+            // Clear the input area
+            JSL.SetText(JSL.TextArea("dataInput"), "");
+
+            // Display a message
+            JSL.EvalList(
+                JSL.Text Box(
+                    Concat("Selected column: ", dt:column(selectedColumn) << get name),
+                    JSL.Font Size(14)
+                ),
+                JSL.Text Box("Data processing completed.", JSL.Font Size(14))
+            );
+        })
+    )
+);
+
+// Create the main window with V box layout
+mainWindow = JSL.Window(
+    JSL.VBox(
+        columnListBox,
+        inputArea,
+        processButton
+    ),
+    JSL.Window Title("Data Grouping"),
+    JSL.Window Size(400, 300),
+    JSL.On Close(JSL.Eval(mainWindow << Close Window))
+);
+
+// Display the main window
+mainWindow << Show Window;
+                 
