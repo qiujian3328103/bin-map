@@ -5,10 +5,19 @@ dt = Current Data Table();
 columnNames = dt << Get Column Names(Include Hidden(0));
 
 // Create a column list box with search function
-columnListBox = JSL.NColListBox(
+columnListBox = JSL.ListBox(
+    columnNames,
     Size(250, 200),
-    items(columnNames),
-    searchBox(JSL.NSearchBox(Size(200, 30)))
+    Selection Type("single"),
+    Search(
+        JSL.SearchBox(
+            Show Match Counts(0),
+            Size(200, 30),
+            Function({sb},
+                columnListBox << Set Filter(sb << Get Text);
+            )
+        )
+    )
 );
 
 // Create an input area for user data entry
@@ -26,7 +35,7 @@ processButton = JSL.ButtonBox(
     JSL.Action(
         JSL.Function({},
             // Get the selected column from the column list box
-            selectedColumn = columnListBox << getSelected;
+            selectedColumn = columnListBox << Get Selected;
 
             // Get the input values
             userInput = JSL.GetText(JSL.TextArea("dataInput"));
@@ -61,7 +70,7 @@ processButton = JSL.ButtonBox(
             // Display a message
             JSL.EvalList(
                 JSL.Text Box(
-                    Concat("Selected column: ", dt:column(selectedColumn) << get name),
+                    Concat("Selected column: ", dt:column(selectedColumn) << Get Name),
                     JSL.Font Size(14)
                 ),
                 JSL.Text Box("Data processing completed.", JSL.Font Size(14))
@@ -84,4 +93,3 @@ mainWindow = JSL.Window(
 
 // Display the main window
 mainWindow << Show Window;
-                 
