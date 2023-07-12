@@ -31,3 +31,15 @@ theme_callback = CustomJS(args=dict(source=source, color_theme=color_theme), cod
     // Trigger the update of the plot
     source.change.emit();
 """ % (color_palette_theme1, color_palette_theme2))
+
+// Calculate the sublist based on the interval
+var sublist = colorList.filter(function(color, index) {
+  // Include the first and last colors
+  if (index === 0 || index === colorList.length - 1) {
+    return true;
+  }
+  // Include colors at index positions that are multiples of the interval
+  return (index % interval === 0);
+});
+
+
