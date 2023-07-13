@@ -10,7 +10,7 @@ from bokeh.models import HoverTool
 from bokeh.layouts import column, row 
 import streamlit as st 
 from bokeh.transform import linear_cmap
-from bokeh.palettes import Viridis256, Inferno256, Magma256, Plasma256, Viridis256, Cividis256, Turbo256
+from bokeh.palettes import Viridis256, Inferno256, Magma256, Plasma256, Viridis256, Cividis256, Turbo256, Spectral11
 import numpy as np 
 import json
 
@@ -59,7 +59,7 @@ df['bottom'] = df_raw["ucs_die_origin_y"]*0.001 - 0.001*size_y/2
 df['top'] = df_raw["ucs_die_origin_y"]*0.001 + 0.001*size_y/2
 
 # Create a sample dataframe
-df['bin_value'] = np.random.randint(0, 51, size=len(df))
+df['bin_value'] = np.random.randint(0, 300, size=len(df))
 print(df)
 # Create a color palette
 # Define the color palette
@@ -135,14 +135,14 @@ plot.add_layout(LinearAxis(y_range_name="right_range"), 'right')
 
 
 # Create a Select widget for color selection
-bin_value_slider = Slider(start=0, end=100, value=5, step=1, title="Stuff")
+bin_value_slider = Slider(start=2, end=100, value=5, step=1, title="Stuff")
 # Create a Select widget for color theme selection
 color_theme_select = Select(title="Color Theme:", options=["Viridis256", "Inferno256", "Magma256", "Plasma256", "Turbo256"], value="Turbo256")
 
 print(Viridis256)
 
 
-################################################################################################################################################
+
 
 # Define the JavaScript code for the CustomJS callback
 # Define the JavaScript code for the CustomJS callback
@@ -151,7 +151,7 @@ custom_js_code = """
     var colorTheme = color_theme_select.value;
     
     // Get the selected bin value
-    var binValue = bin_value_slider.value;
+    var colorInterval = bin_value_slider.value;
     
     // Get the selected color theme data
     var colorTheme1 = JSON.parse(color_them_1);
@@ -176,14 +176,17 @@ custom_js_code = """
     
     // Calculate the color interval based on the number of colors and the bin value
     var maxBinValue = Math.max.apply(Math, source.data['bin_value']);
-    var colorInterval = Math.floor(colorPalette.length / binValue);
     
     // Create a new color list with the desired color interval
     var newColorList = [];
-    for (var i = 0; i < colorPalette.length; i += colorInterval) {
-        newColorList.push(colorPalette[i]);
+    if (colorInterval >= colorPalette.length) {
+        newColorList = colorPalette;
+    } else {
+        for (var i = 0; i < colorPalette.length; i += colorInterval) {
+            newColorList.push(colorPalette[i]);
+        }
     }
-    
+    console.log(newColorList);
     // Update the color column based on the bin value and new color list
     source.data['color'] = source.data['bin_value'].map(function (value) {
         var colorIndex = Math.floor((value / maxBinValue) * (newColorList.length - 1));
@@ -197,7 +200,7 @@ custom_js_callback = CustomJS(args=dict(source=cell.data_source,
                                         color_theme_select=color_theme_select, 
                                         bin_value_slider=bin_value_slider, 
                                         color_them_1=json.dumps(Viridis256), 
-                                        color_them_2=json.dumps(Inferno256), 
+                                        color_them_2=json.dumps(Spectral11), 
                                         color_them_3=json.dumps(Magma256), 
                                         color_them_4=json.dumps(Plasma256), 
                                         color_them_5=json.dumps(Turbo256)), 
@@ -220,5 +223,3 @@ bk_row = row(bk_col, plot)
 st.sidebar.selectbox("Select Data: ", options=["Select A", "Select B"], index=0)
 # show(plot)
 st.bokeh_chart(bk_row, use_container_width=False)
-
-
