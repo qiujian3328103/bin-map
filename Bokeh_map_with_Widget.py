@@ -90,7 +90,7 @@ print(df["color"])
 # df['top'] = df['ucs_die_origin_y']*0.001 + 0.001*width/2
 # df["color"]="green"
 
-print(df.columns)
+
 
 # columnd data source of dataframe 
 source = ColumnDataSource(df)
@@ -131,19 +131,20 @@ plot.add_layout(LinearAxis(y_range_name="right_range"), 'right')
 
 
 
-
-
-
 # Create a Select widget for color selection
 bin_value_slider = Slider(start=2, end=100, value=5, step=1, title="Stuff")
 # Create a Select widget for color theme selection
 color_theme_select = Select(title="Color Theme:", options=["Viridis256", "Inferno256", "Magma256", "Plasma256", "Turbo256"], value="Turbo256")
 
-print(Viridis256)
 
+# Create a Select widget for color selection
+color_select = Select(title="Circle Color:", options=["white", "blue", "green"], value="white")
 
+width_select = Slider(start=1, end=5, value=2, step=1, title="circle width")
 
+die_line_color_select = Select(title="Circle Color:", options=["white", "blue", "green"], value="white")
 
+die_width = Slider(start=1, end=3, value=1, step=1, title="die width")
 # Define the JavaScript code for the CustomJS callback
 # Define the JavaScript code for the CustomJS callback
 custom_js_code = """
@@ -207,16 +208,51 @@ custom_js_callback = CustomJS(args=dict(source=cell.data_source,
                               code=custom_js_code)
 
 
+# Define the JavaScript code for the CustomJS callback
+custom_js_circle_color = """
+    // Get the selected circle color
+    var circleColor = color_select.value;
+    var circleWidth = width_select.value;
+    console.log(circle.glyph);
+    // Update the fill color of the circle object
+    circle.glyph.line_color = circleColor;
+    circle.glyph.line_width = parseInt(circleWidth);
+    circle.change.emit();
+"""
+
+
+# Define the JavaScript code for the CustomJS callback
+custom_js_die_color = """
+    // Get the selected circle color
+    var circleColor = color_select.value;
+    var circleWidth = width_select.value;
+    console.log(die.glyph);
+    // Update the fill color of the circle object
+    die.glyph.line_color = circleColor;
+    die.glyph.line_width = parseInt(circleWidth);
+    die.change.emit();
+"""
+
+# Create the CustomJS callback
+custom_js_callback_circle_color = CustomJS(args=dict(circle=circle, color_select=color_select, width_select=width_select), code=custom_js_circle_color)
+
+
+
+custom_js_callback_die_color = CustomJS(args=dict(die=cell, color_select=die_line_color_select, width_select=die_width), code=custom_js_die_color)
+
+
+# Assign the CustomJS callback to the color select widget
+color_select.js_on_change('value', custom_js_callback_circle_color)
+
+die_line_color_select.js_on_change('value', custom_js_callback_die_color)
+
 # Assign the CustomJS callback to the color theme select and bin value slider
 color_theme_select.js_on_change('value', custom_js_callback)
 bin_value_slider.js_on_change('value', custom_js_callback)
 
 
 
-
-
-
-bk_col = column(color_theme_select, bin_value_slider)
+bk_col = column(color_theme_select, bin_value_slider, color_select, width_select, die_line_color_select, die_width)
 
 bk_row = row(bk_col, plot)
 
