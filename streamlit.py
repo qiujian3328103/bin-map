@@ -180,3 +180,100 @@ with grid:
                 card_title = f"<h3 style='text-align: center; color: black;'>Product ID: <a href='https://www.google.com'>{product_id}</a></h3>"
                 card_text = f"<p style='text-align: center; color: black;'>Number of PE HOLD: {count}</p>"
                 cols[j].markdown(f'<div style="background-color: #F0E68C; padding: 10px; border-radius: 5px; margin-bottom: 10px; color: black;">{card_title}{card_text}</div>', unsafe_allow_html=True)
+
+
+
+Graph Builder(
+	Transform Column(
+		"CDF",
+		Formula(
+			Col Rank( :bin_value, :BIN_GROUP ) / (
+			Col Number( :bin_value, :BIN_GROUP ) + 1)
+		)
+	),
+	Size( 828, 646 ),
+	Variables(
+		X( :bin_value ),
+		Y( :"CDF"n ),
+		Overlay( :Group )
+	),
+	Elements( Points( X, Y, Legend( 11 ) ) ),
+	SendToReport(
+		Dispatch(
+			{},
+			"bin_value",
+			ScaleBox,
+			{Min( 69.3540154351647 ), Max( 105.3824864369 ), Inc( 1 ),
+			Minor Ticks( 1 ), Label Row( Set Font Size( 16 ) )}
+		),
+		Dispatch(
+			{},
+			"Cumulative Prob...ty[height][sex]",
+			ScaleBox,
+			{Min( -0.0177672148162146 ), Max( 1.05 ), Inc( 0.1 ), Minor Ticks( 3 ),
+			Label Row( Set Font Size( 16 ) )}
+		),
+		Dispatch(
+			{},
+			"400",
+			ScaleBox,
+			{Legend Model(
+				11,
+				Properties(
+					0,
+					{Marker( "FilledCircle" ), Marker Size( 10 )},
+					Item ID( "a1_POR", 1 )
+				),
+				Properties(
+					1,
+					{Marker( "FilledWide" ), Marker Size( 10 )},
+					Item ID( "b_425P0C", 1 )
+				),
+				Properties(
+					2,
+					{Marker( "Filled Diamond" ), Marker Size( 10 )},
+					Item ID( "b_425P2B (Goto)", 1 )
+				),
+				Properties(
+					3,
+					{Marker( "Filled Down Triangle" ), Marker Size( 10 )},
+					Item ID( "b_425P2C", 1 )
+				),
+				Properties(
+					4,
+					{Marker( "Filled Right Triangle" ), Marker Size( 10 )},
+					Item ID( "b_425P4C", 1 )
+				),
+				Properties(
+					5,
+					{Line Color( 14 ), Marker( "FilledSquare" ), Marker Size( 10 )},
+					Item ID( "b_425P5C(cliff)", 1 )
+				),
+				Properties(
+					6,
+					{Line Color( 16 ), Marker Size( 9 )},
+					Item ID( "Baseline", 1 )
+				)
+			)}
+		),
+		Dispatch( {}, "graph title", TextEditBox, {Set Text( "CDF YIELD PLOT" )} ),
+		Dispatch(
+			{},
+			"X title",
+			TextEditBox,
+			{Set Text( "Yield Value" ), Set Font Size( 20 )}
+		),
+		Dispatch(
+			{},
+			"Y title",
+			TextEditBox,
+			{Set Text( "CDF" ), Set Font Size( 20 )}
+		),
+		Dispatch(
+			{},
+			"Graph Builder",
+			FrameBox,
+			{Marker Size( 9 ), Marker Drawing Mode( "Normal" )}
+		)
+	)
+);
