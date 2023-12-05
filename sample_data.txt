@@ -148,3 +148,56 @@ Demonstrating effective interpersonal skills through the sharing of appropriate 
 
 • Adjusts vocabulary, tone and communication style based on others’ levels of comprehension or cultural differences
 
+
+I actively engage in collaborative efforts with both internal and external teams as an integral part of my work. Externally, I am responsible for facilitating YYC meetings and collaborating with the Units team to drive initiatives and swiftly resolve any excursions that may arise. I have dedicated significant time working alongside the PIE ops, TT, and MFG teams during night shifts to ensure that critical lots are processed on time. My contributions also extend to assisting the PIE team with data retrieval, QSCAN, QMFAT data collection, and weekly analysis of die-level data.
+
+Furthermore, I collaborate with the PIE team on nonbump reports, offering my assistance in helping them understand the intricacies of nonbump processes. Internally, I work closely with PE2 and PE1 engineers on the NBUMP 2.0 project, taking the lead in project management and successfully completing the first version of NBUMP 2.0 within just one month. Additionally, I collaborate with the coding team, providing support in developing applications for their PE knowledge database and various other tasks.
+
+Through these collaborative efforts, both internal and external, I remain committed to delivering excellence in work deliverables, providing exceptional service to others, and maintaining a high standard of quality in products and the overall customer/user experience. This commitment holds true whether the customers are internal or external, reflecting my dedication to continuous improvement and ensuring the utmost satisfaction of all stakeholders.
+
+
+
+
+
+I possess a strong sense of purpose and a results-oriented mindset, which drives me to consistently meet task and project deadlines. I take full ownership of my assigned tasks, ensuring their completion on time within my scope of influence. Additionally, I proactively follow up on any dependencies involving others to ensure the timely completion of tasks. When a task or project is at risk, I am not hesitant to solicit the necessary support to address the issue promptly.
+
+My commitment to delivering results is evident in my track record of responding to OMS lot holds promptly, even during off-work hours. I have dedicated numerous days and nights to ensure critical nonbump lots are tested and reported on time. Moreover, I work at a fast pace and have successfully completed multiple critical projects independently within the past five months. These projects consistently closed well ahead of their deadlines and met all requirements. Notably, I developed the PE acknowledge database NPI-MP handshake app in just two weeks, enabling the management team to review it promptly. Similarly, I single-handedly created the Nbump 2.0 app, from backend to frontend, in just one month, a task that would typically require the efforts of two to three individuals over several months. My drive and determination are key factors in propelling team and organizational goals forward while overcoming challenges and obstacles to ensure successful task and project 
+
+
+
+I excel in the realm of decision-making, consistently demonstrating my ability to lead the team in arriving at sound conclusions, especially when managers or responsible parties are not physically present to address critical issues. I possess a keen understanding of the factors that critically influence the resolution of these issues.
+
+In addition, I actively engage in sharing relevant information with team members and leaders, facilitating a comprehensive understanding of the issues or problems that need to be resolved. Furthermore, when confronted with multiple possible solutions, I am adept at identifying and articulating the pros and cons of each option, contributing to a well-informed decision-making process.
+
+I am committed to continuous improvement in my decision-making abilities, actively seeking out additional context and data to support better-informed decisions. My holistic analysis, comprehensive understanding of situational context, and alignment with current organizational needs underscore my effectiveness in identifying and selecting the best course of action or solution.
+
+
+
+
+
+I wholeheartedly embrace the concept of continuous learning and improvement as an integral part of my mindset. From a project perspective, I am committed to implementing and refining projects continuously, ensuring they evolve and become more effective over time. I actively engage in continuous improvement training and apply this mindset to enhance manufacturing processes.
+
+In addition to project-related improvements, I consistently revisit issues, delving deep to uncover their root causes and striving to find superior solutions. This dedication to addressing challenges and constantly seeking better approaches aligns with my commitment to continuous improvement.
+
+Moreover, I maintain a strong focus on excellence in my work deliverables, service to others, and the quality of products or the overall customer/user experience, whether the customers are internal or external. This unwavering dedication to continuous improvement reinforces my commitment to delivering exceptional value and maintaining the highest standards of quality in all aspects of my work.
+
+
+I have a deep appreciation for the importance of quality in my work, and I prioritize it as a fundamental aspect of my role as a PE engineer. I am meticulous in my approach, reviewing every single nonbump report with great care to ensure the accuracy of the data provided for DVS results. I also meticulously craft requests for the units team, aiming to prevent any potential quality issues.
+
+Moreover, I actively monitor FT data, consistently identifying and highlighting any FT-related issues. When I encounter such issues, I go a step further by providing comprehensive root cause analysis and proposing effective solutions. This proactive approach not only helps address immediate concerns but also contributes to ongoing process improvement and enhanced product quality.
+
+Additionally, I actively seek feedback on my work product, processes, and services, recognizing its value in achieving better quality outcomes. I am open to implementing different approaches within my scope based on the feedback received, continually striving to enhance the quality of products, services, and processes. My unwavering commitment to quality underscores my dedication to delivering excellence in all aspects of my work.
+
+I have a deep appreciation for the importance of quality in my work, and I prioritize it as a fundamental aspect of my role as a PE engineer. I am meticulous in my approach, reviewing every single nonbump report with great care to ensure the accuracy of the data provided for DVS results. I also meticulously craft requests for the units team, aiming to prevent any potential quality issues.
+
+Moreover, I actively monitor FT data, consistently identifying and highlighting any FT-related issues. When I encounter such issues, I go a step further by providing comprehensive root cause analysis and proposing effective solutions. This proactive approach not only helps address immediate concerns but also contributes to ongoing process improvement and enhanced product quality.
+
+Additionally, I actively seek feedback on my work product, processes, and services, recognizing its value in achieving better quality outcomes. I am open to implementing different approaches within my scope based on the feedback received, continually striving to enhance the quality of products, services, and processes. My unwavering commitment to quality underscores my dedication to delivering excellence in all aspects of my work.
+
+I take pride in my effective communication skills, which enable me to engage effectively with both internal and external stakeholders. In my interactions with internal teams, I prioritize clarity and simplicity, ensuring that I use straightforward language to explain product details and test requests, making it easier for the units to understand and align with our processes.
+
+When communicating with external customers, I am responsive and attentive, striving to establish a strong rapport and a deep understanding of their concerns. I work diligently to convey our company's expertise and capabilities, addressing their issues comprehensively and explaining our methods for preventing similar issues in the future.
+
+Internally, I leverage my communication skills to collaborate with junior engineers, providing them with insights into our business and offering guidance on the most effective approaches. I adapt my communication style based on the audience's level of comprehension and cultural differences, ensuring that I can effectively convey information and influence decisions in alignment with our business needs and goals.
+
+Overall, my ability to clearly articulate facts and ideas, actively listen to others to understand their perspectives, and adjust my communication style to suit different audiences underscores my commitment to effective communication, both within and outside the organization.
