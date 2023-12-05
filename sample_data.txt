@@ -18,3 +18,133 @@
 '30.00\t.\t.\t.\t.\t',
 'X-Aixs\t0.60\t0.61\t0.62\t0.63\t0.64\t0.65\t0.66\t0.67\t0.68\t0.69\t:VDDCX (v)'
 ]
+[Guide for Competency Assessment]
+□ Process of Competency Assessment
+   Self Assessment → 1st-line Manager Review/Approval → 2nd-line Manager Review/Approval
+    ※ 2nd-line manager review is conducted only for competencies that have been marked as Level 4 or Level 5 by the 1st-line manager.
+
+□ How to conduct Self Assessment
+1. Please read ‘Definition’ and ‘Behavior Indicator’ of each competency carefully, and select 'Assessment Level' that suits to yourself.
+2. If you choose ‘Level 4’ or 'Level 5' for ‘Assessment Level’, a proper rationale should be provided.
+  - The rationale you provided should be elaborated based on 5W1H : Who, When, Where, What, Why, and How.
+3. By clicking 'Submit', you can complete Self Assessment for all 10 specified competiencies. 
+4. If you click ‘Save for later’, it automatically saves the current assessment at ‘Inbox’ where you are able to resume.
+5. When your managers decline your self assessment and require more detailed rationale, it is highly recommended to discuss with him/her prior to a resubmission in order to be alinged with what they require.
+ 
+
+□ How to conduct Manager Review/Approval
+1. Read ‘Definition’ and ‘Behavior Indicators’ of each competency, and determine the Assessment Level that suits to the assessment participants.
+   ※ Check if the participants have submitted a set of reasons as well for their self assessment at 'Rationale'.
+2. Providing feedback from the manager in the 'Rationale' field is highly recommended in the following cases:
+    - When assessment Level 4 or Level 5 is to be given to the participants, or when assessment levels chosen by a participant and a manager are not identical. 
+   ※ Both the 2nd-line manager and the participants can check the levels which have been given in the 'Rationale' field. 
+3. You may click ‘Send Back’ to decline self-assessment if you find the rationale provided insufficient.
+
+[Definition]
+Driving future-oriented changes and generating creative perspectives and solutions; Thoughtfully challenging past practices, approaches and old ways of thinking to unlock new opportunities.
+
+[Behavior Indicators]-CL2
+• Identifies problems or issues and suggests solutions from a new perspective.
+• Does not passively accepts conventional practices and is open to accepting new methods.
+• Treats change and new situations as opportunities for learning and growth.
+
+[Definition]
+Solving problems on time by accurately identifying and distilling complex problems or situations, seeking the root cause(s), and coming up with the best solution based on comprehensive data sources and sound judgment.
+
+[Behavior Indicators]-CL2
+• Demonstrates an openness to continuously learn and apply different ways of solving issues.
+• Clearly identifies the pros and cons of different solutions.
+• Engages others in problem solving and knowing when to escalate further
+
+[Definition]
+Achieving organizational and team goals through effective communication, proactive partnerships with multiple stakeholders, and creating synergistic ways of working
+
+
+[Behavior Indicators]-CL2
+• Effectively communicates and shares information within the team.
+• Actively asks for clarity and relevant input from others on one’s roles, responsibilities, tasks and projects
+
+• Supports colleagues outside one’s immediate area of responsibility to achieve common team goals
+
+[Definition]
+Embodying a strong sense of purpose and results-orientation that propels team and organizational goals forward, overcoming challenges and obstacles to ensure successful task or project completion
+
+
+[Behavior Indicators]-CL2
+• Takes full ownership for ensuring assigned tasks are completed on time within one’s scope of influence
+
+• Follows-up with any dependencies on others in order to complete assigned tasks in a timely manner
+
+• Solicits need for support if a task or project is at risk
+
+[Definition]
+Effectively identifying and selecting the best course of action or solution through holistic analysis and understanding of the situational context, relevant data sources, alternative options and both short-term and long-term organizational impacts, in alignment to current organizational needs
+
+
+[Behavior Indicators]-CL2
+• Analyzes and understands relevant information and shares issues or problems that need to be resolved with team members or leaders.
+
+• Can provide support to identify the pros and cons of multiple possible solutions when making a decision
+
+• Actively seeks additional context and data to support better decision-making
+
+	
+[Definition]
+
+Having the mindset that learning is lifelong, and ensuring that one’s competencies (knowledge, skills and abilities) are relevant and continuously being sharpened through both formal and informal ways
+
+[Behavior Indicators]-CL2
+
+• Identifies and understands both areas of strength and areas of development; leveraging one’s strength and improving areas that have the most impact
+
+• Is able to effectively adapt to changes or interpersonal situations
+
+• Can operate effectively outside of one’s area of comfort or expertise
+
+[Definition]
+Continuously focusing on excellence in one’s work deliverables, service to others, or quality in product or customer/user experience, whether the customers are internal or external
+
+
+[Behavior Indicators]-CL2
+• Actively asks for feedback on one’s work product, processes or service
+
+• Implements different ways of doing things within one’s scope, based on feedback, to achieve better quality
+
+• Suggests ways to improve the quality of product, services or processes
+
+	
+[Definition]
+Understanding and leveraging changes in the global environment in relation to the company’s business strategy.  Working effectively and in an inclusive manner with both individuals and groups of people that have diverse styles, abilities and motivation.  Being open-minded, culturally astute and respectful of differences, while harnessing our diversity as a strength to achieve business results.
+
+
+[Behavior Indicators]-CL2
+• Behaves in an inclusive manner when collaborating with others
+
+• Seeks to understand and learn from others that have different perspectives and backgrounds
+
+• Actively engages different perspectives when dealing with problems or finding solutions
+
+• Communicates and works effectively with others whose background, culture, language, or work style is different than one's own
+
+[Definition]
+Proactively identifies, evaluates and mitigates or controls organizational risks to prevent or minimize negative business impact; Capitalizes on business opportunities through intelligent risk-taking that will bring the company a competitive edge
+
+
+[Behavior Indicators]-CL2
+• Presents alternative solutions or plans if risks are involved in a project or one’s work
+
+• Establishes or improves upon risk measurements that identify the level of risk and subsequent courses of action
+
+• Balances recommendations that include not only the upside but also elements and levels of risk
+
+	
+[Definition]
+Demonstrating effective interpersonal skills through the sharing of appropriate information or one’s point of view; Effectively interacting with others through active listening, understanding intent or key messages, and adapting to the audience; Possessing good verbal, non-verbal and written communication skills that help convey effective messages or influence decisions aligned to business needs and goals
+
+[Behavior Indicators]-CL2
+• Clearly articulates facts and ideas in a credible manner
+
+• Actively listens to others in order to fully understand their point of view, rather than listening to form a solution or response
+
+• Adjusts vocabulary, tone and communication style based on others’ levels of comprehension or cultural differences
+
