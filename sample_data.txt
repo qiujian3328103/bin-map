@@ -18,186 +18,152 @@
 '30.00\t.\t.\t.\t.\t',
 'X-Aixs\t0.60\t0.61\t0.62\t0.63\t0.64\t0.65\t0.66\t0.67\t0.68\t0.69\t:VDDCX (v)'
 ]
-[Guide for Competency Assessment]
-□ Process of Competency Assessment
-   Self Assessment → 1st-line Manager Review/Approval → 2nd-line Manager Review/Approval
-    ※ 2nd-line manager review is conducted only for competencies that have been marked as Level 4 or Level 5 by the 1st-line manager.
+import pandas as pd 
+import numpy as np 
+import holoviews as hv 
+import hvplot.pandas 
+from holoviews import opts
+from bokeh.models import Select 
+from bokeh.models import ColumnDataSource
+import panel as pn 
+import os 
+import glob
+
+def filter_csv_rows(file_path):
+    """
+    read a csv file and filters out specified rows
+
+    Parameters
+    ----------
+    file_path : TYPE
+        DESCRIPTION.
+
+    Returns
+    -------
+    None.
+
+    """
+    try: 
+        df = pd.read_csv(file_path, header=72)
+        print(df.columns)
+        # drop rows 76 to 80 (which now indexed 0 to 4 after reading)
+        rows_to_drop = [i for i in range(5)]
+        
+        df_filtered = df.drop(rows_to_drop, axis=0).reset_index(drop=True)
+        
+        return df_filtered
+    except FileNotFoundError:
+        print("file not found")
+    
+    except Exception as e:
+        print(e)
+        return None
+
+
+def create_scatter_plot(stdf_item, wafer_list, df_limit):
+    df_filter = df[df["LOT_WAFER"].isin(wafer_list)]
+    df_filter = df_filter[[stdf_item, "LOT_ID", "WAFER_ID", "LOT_WAFER",  "DIE_X", "DIE_Y"]]
+    df_filter = df_filter.sort_values(by=stdf_item)
+    df_filter["cdf"] = np.arange(1, len(df_filter[stdf_item]) + 1) / len(df_filter[stdf_item]) * 100
+    
+    scatter = df_filter.hvplot.scatter(
+        x = stdf_item,
+        y = 'cdf',
+        c='LOT_WAFER',
+        title=stdf_item,
+        legend='top_left',
+        width=500,
+        height=400,
+        ).opts(opts.Scatter(show_legend=True))
+    
+    heatmap = hv.HeatMap(
+            df_filter, 
+            kdims=["DIE_X", "DIE_Y"],
+            vdims=[stdf_item]
+        ).opts(
+            title="Heat Map {}".format(stdf_item),
+            width=450, 
+            height=400,
+            cmap="viridis",
+            invert_yaxis=True,
+            colorbar=True
+    )
+    
+    
+    
+    df_limit_filter = df_limit[df_limit['stdf_item']==stdf_item]
+    # df_limit_filter = df_limit[df_limit['Parameter']==stdf_item]
+    
+    HighL = df_limit_filter["HighL"].unique().tolist()[0]
+    LowL = df_limit_filter["LowL"].unique().tolist()[0]
+    
+    
+    vline_low = hv.VLine(x=LowL).opts(color='red', line_width=3)
+    vline_high = hv.VLine(x=HighL).opts(color='red', line_width=3)
+    
+    return (scatter * vline_high * vline_low) + heatmap
+
+
+# df = pd.read_csv(r"D:\PERSONAL_SPACE\general\NPI\Neutron 2.0 UXNN\UXNN_TSE\pivot_data_stdf.csv", index_col=False)
+df_limit = pd.read_csv(r"D:\PERSONAL_SPACE\general\NPI\Neutron 2.0 UXNN\Neutron_PGM_Review\limit.csv")
+
+# filter all the non
+df_limit = df_limit.dropna()
+
+# get the paramater data list 
+param_list = df_limit["stdf_item"].unique().tolist()
+
+filter_column = ["Parameter"," SBIN","HBIN","DIE_X","DIE_Y","SITE","TIME","TOTAL_TESTS","LOT_ID","WAFER_ID", "LOT_WAFER"] + sorted(param_list)
+
+
+# df = pd.DataFrame()
+# for file_name in os.listdir(r"D:\PERSONAL_SPACE\general\NPI\Neutron 2.0 UXNN\UXNN_MP\SPK91"):
+#     file_path = os.path.join(r"D:\PERSONAL_SPACE\general\NPI\Neutron 2.0 UXNN\UXNN_MP\SPK91", file_name)
+#     df_tmp = filter_csv_rows(file_path=file_path)
+#     df = pd.concat([df,df_tmp],axis=0)
 
-□ How to conduct Self Assessment
-1. Please read ‘Definition’ and ‘Behavior Indicator’ of each competency carefully, and select 'Assessment Level' that suits to yourself.
-2. If you choose ‘Level 4’ or 'Level 5' for ‘Assessment Level’, a proper rationale should be provided.
-  - The rationale you provided should be elaborated based on 5W1H : Who, When, Where, What, Why, and How.
-3. By clicking 'Submit', you can complete Self Assessment for all 10 specified competiencies. 
-4. If you click ‘Save for later’, it automatically saves the current assessment at ‘Inbox’ where you are able to resume.
-5. When your managers decline your self assessment and require more detailed rationale, it is highly recommended to discuss with him/her prior to a resubmission in order to be alinged with what they require.
- 
+# # path = r"D:\PERSONAL_SPACE\general\NPI\Neutron 2.0 UXNN\UXNN_MP\SPK91\ASE_ASEK-S_CD90-42823-22B_WSBU-42823-22B-02_TPP_SPK91-SPK91-01_2023-12-19T032959_0_WS1_349AIVT1_UFLEX222.stdf.gextb.csv"
+# # df = filter_csv_rows(file_path=path)
 
-□ How to conduct Manager Review/Approval
-1. Read ‘Definition’ and ‘Behavior Indicators’ of each competency, and determine the Assessment Level that suits to the assessment participants.
-   ※ Check if the participants have submitted a set of reasons as well for their self assessment at 'Rationale'.
-2. Providing feedback from the manager in the 'Rationale' field is highly recommended in the following cases:
-    - When assessment Level 4 or Level 5 is to be given to the participants, or when assessment levels chosen by a participant and a manager are not identical. 
-   ※ Both the 2nd-line manager and the participants can check the levels which have been given in the 'Rationale' field. 
-3. You may click ‘Send Back’ to decline self-assessment if you find the rationale provided insufficient.
+# df["LOT_WAFER"] = df["LOT_ID"].astype(str) + "-" + df["WAFER_ID"].astype(str)
+# wafer_list = df["LOT_WAFER"].unique().tolist()
 
-[Definition]
-Driving future-oriented changes and generating creative perspectives and solutions; Thoughtfully challenging past practices, approaches and old ways of thinking to unlock new opportunities.
+# # print(df.columns)
+# df = df[filter_column]
 
-[Behavior Indicators]-CL2
-• Identifies problems or issues and suggests solutions from a new perspective.
-• Does not passively accepts conventional practices and is open to accepting new methods.
-• Treats change and new situations as opportunities for learning and growth.
+df = pd.read_csv(r"D:\PERSONAL_SPACE\general\NPI\Neutron 2.0 UXNN\UXNN_MP\STDF_Data.csv")
+wafer_list = df["LOT_WAFER"].unique().tolist()
+#
 
-[Definition]
-Solving problems on time by accurately identifying and distilling complex problems or situations, seeking the root cause(s), and coming up with the best solution based on comprehensive data sources and sound judgment.
+# convert the object to numerical for columns 
+for param in param_list:
+    if df[param].dtype == "object":
+        try:
+            df[param] = pd.to_numeric(df[param], errors="coerce")
+        except ValueError:
+            pass
 
-[Behavior Indicators]-CL2
-• Demonstrates an openness to continuously learn and apply different ways of solving issues.
-• Clearly identifies the pros and cons of different solutions.
-• Engages others in problem solving and knowing when to escalate further
+# print(df.dtypes)
+# print(df.dtypes)
+# df.to_csv(r"D:\PERSONAL_SPACE\general\NPI\Neutron 2.0 UXNN\UXNN_MP\STDF_Data.csv")
 
-[Definition]
-Achieving organizational and team goals through effective communication, proactive partnerships with multiple stakeholders, and creating synergistic ways of working
+pn.extension()
 
 
-[Behavior Indicators]-CL2
-• Effectively communicates and shares information within the team.
-• Actively asks for clarity and relevant input from others on one’s roles, responsibilities, tasks and projects
+select = pn.widgets.Select(title="Select STDF ITEM: ", options=sorted(param_list), size=20, width=500)
+multi_select = pn.widgets.MultiSelect(name='Lot Wafer', value=wafer_list, options=wafer_list, size=8)
 
-• Supports colleagues outside one’s immediate area of responsibility to achieve common team goals
+# @pn.bind(select.param.value)
+# def update_plot(stdf_item):
+#     return create_scatter_plot(stdf_item)
 
-[Definition]
-Embodying a strong sense of purpose and results-orientation that propels team and organizational goals forward, overcoming challenges and obstacles to ensure successful task or project completion
+# app = pn.Column(select, update_plot)
 
+# app.servable()
 
-[Behavior Indicators]-CL2
-• Takes full ownership for ensuring assigned tasks are completed on time within one’s scope of influence
+interactive_plot = pn.bind(create_scatter_plot, select, multi_select, df_limit)
 
-• Follows-up with any dependencies on others in order to complete assigned tasks in a timely manner
-
-• Solicits need for support if a task or project is at risk
-
-[Definition]
-Effectively identifying and selecting the best course of action or solution through holistic analysis and understanding of the situational context, relevant data sources, alternative options and both short-term and long-term organizational impacts, in alignment to current organizational needs
-
-
-[Behavior Indicators]-CL2
-• Analyzes and understands relevant information and shares issues or problems that need to be resolved with team members or leaders.
-
-• Can provide support to identify the pros and cons of multiple possible solutions when making a decision
-
-• Actively seeks additional context and data to support better decision-making
-
-	
-[Definition]
-
-Having the mindset that learning is lifelong, and ensuring that one’s competencies (knowledge, skills and abilities) are relevant and continuously being sharpened through both formal and informal ways
-
-[Behavior Indicators]-CL2
-
-• Identifies and understands both areas of strength and areas of development; leveraging one’s strength and improving areas that have the most impact
-
-• Is able to effectively adapt to changes or interpersonal situations
-
-• Can operate effectively outside of one’s area of comfort or expertise
-
-[Definition]
-Continuously focusing on excellence in one’s work deliverables, service to others, or quality in product or customer/user experience, whether the customers are internal or external
-
-
-[Behavior Indicators]-CL2
-• Actively asks for feedback on one’s work product, processes or service
-
-• Implements different ways of doing things within one’s scope, based on feedback, to achieve better quality
-
-• Suggests ways to improve the quality of product, services or processes
-
-	
-[Definition]
-Understanding and leveraging changes in the global environment in relation to the company’s business strategy.  Working effectively and in an inclusive manner with both individuals and groups of people that have diverse styles, abilities and motivation.  Being open-minded, culturally astute and respectful of differences, while harnessing our diversity as a strength to achieve business results.
-
-
-[Behavior Indicators]-CL2
-• Behaves in an inclusive manner when collaborating with others
-
-• Seeks to understand and learn from others that have different perspectives and backgrounds
-
-• Actively engages different perspectives when dealing with problems or finding solutions
-
-• Communicates and works effectively with others whose background, culture, language, or work style is different than one's own
-
-[Definition]
-Proactively identifies, evaluates and mitigates or controls organizational risks to prevent or minimize negative business impact; Capitalizes on business opportunities through intelligent risk-taking that will bring the company a competitive edge
-
-
-[Behavior Indicators]-CL2
-• Presents alternative solutions or plans if risks are involved in a project or one’s work
-
-• Establishes or improves upon risk measurements that identify the level of risk and subsequent courses of action
-
-• Balances recommendations that include not only the upside but also elements and levels of risk
-
-	
-[Definition]
-Demonstrating effective interpersonal skills through the sharing of appropriate information or one’s point of view; Effectively interacting with others through active listening, understanding intent or key messages, and adapting to the audience; Possessing good verbal, non-verbal and written communication skills that help convey effective messages or influence decisions aligned to business needs and goals
-
-[Behavior Indicators]-CL2
-• Clearly articulates facts and ideas in a credible manner
-
-• Actively listens to others in order to fully understand their point of view, rather than listening to form a solution or response
-
-• Adjusts vocabulary, tone and communication style based on others’ levels of comprehension or cultural differences
-
-
-I actively engage in collaborative efforts with both internal and external teams as an integral part of my work. Externally, I am responsible for facilitating YYC meetings and collaborating with the Units team to drive initiatives and swiftly resolve any excursions that may arise. I have dedicated significant time working alongside the PIE ops, TT, and MFG teams during night shifts to ensure that critical lots are processed on time. My contributions also extend to assisting the PIE team with data retrieval, QSCAN, QMFAT data collection, and weekly analysis of die-level data.
-
-Furthermore, I collaborate with the PIE team on nonbump reports, offering my assistance in helping them understand the intricacies of nonbump processes. Internally, I work closely with PE2 and PE1 engineers on the NBUMP 2.0 project, taking the lead in project management and successfully completing the first version of NBUMP 2.0 within just one month. Additionally, I collaborate with the coding team, providing support in developing applications for their PE knowledge database and various other tasks.
-
-Through these collaborative efforts, both internal and external, I remain committed to delivering excellence in work deliverables, providing exceptional service to others, and maintaining a high standard of quality in products and the overall customer/user experience. This commitment holds true whether the customers are internal or external, reflecting my dedication to continuous improvement and ensuring the utmost satisfaction of all stakeholders.
-
-
-
-
-
-I possess a strong sense of purpose and a results-oriented mindset, which drives me to consistently meet task and project deadlines. I take full ownership of my assigned tasks, ensuring their completion on time within my scope of influence. Additionally, I proactively follow up on any dependencies involving others to ensure the timely completion of tasks. When a task or project is at risk, I am not hesitant to solicit the necessary support to address the issue promptly.
-
-My commitment to delivering results is evident in my track record of responding to OMS lot holds promptly, even during off-work hours. I have dedicated numerous days and nights to ensure critical nonbump lots are tested and reported on time. Moreover, I work at a fast pace and have successfully completed multiple critical projects independently within the past five months. These projects consistently closed well ahead of their deadlines and met all requirements. Notably, I developed the PE acknowledge database NPI-MP handshake app in just two weeks, enabling the management team to review it promptly. Similarly, I single-handedly created the Nbump 2.0 app, from backend to frontend, in just one month, a task that would typically require the efforts of two to three individuals over several months. My drive and determination are key factors in propelling team and organizational goals forward while overcoming challenges and obstacles to ensure successful task and project 
-
-
-
-I excel in the realm of decision-making, consistently demonstrating my ability to lead the team in arriving at sound conclusions, especially when managers or responsible parties are not physically present to address critical issues. I possess a keen understanding of the factors that critically influence the resolution of these issues.
-
-In addition, I actively engage in sharing relevant information with team members and leaders, facilitating a comprehensive understanding of the issues or problems that need to be resolved. Furthermore, when confronted with multiple possible solutions, I am adept at identifying and articulating the pros and cons of each option, contributing to a well-informed decision-making process.
-
-I am committed to continuous improvement in my decision-making abilities, actively seeking out additional context and data to support better-informed decisions. My holistic analysis, comprehensive understanding of situational context, and alignment with current organizational needs underscore my effectiveness in identifying and selecting the best course of action or solution.
-
-
-
-
-
-I wholeheartedly embrace the concept of continuous learning and improvement as an integral part of my mindset. From a project perspective, I am committed to implementing and refining projects continuously, ensuring they evolve and become more effective over time. I actively engage in continuous improvement training and apply this mindset to enhance manufacturing processes.
-
-In addition to project-related improvements, I consistently revisit issues, delving deep to uncover their root causes and striving to find superior solutions. This dedication to addressing challenges and constantly seeking better approaches aligns with my commitment to continuous improvement.
-
-Moreover, I maintain a strong focus on excellence in my work deliverables, service to others, and the quality of products or the overall customer/user experience, whether the customers are internal or external. This unwavering dedication to continuous improvement reinforces my commitment to delivering exceptional value and maintaining the highest standards of quality in all aspects of my work.
-
-
-I have a deep appreciation for the importance of quality in my work, and I prioritize it as a fundamental aspect of my role as a PE engineer. I am meticulous in my approach, reviewing every single nonbump report with great care to ensure the accuracy of the data provided for DVS results. I also meticulously craft requests for the units team, aiming to prevent any potential quality issues.
-
-Moreover, I actively monitor FT data, consistently identifying and highlighting any FT-related issues. When I encounter such issues, I go a step further by providing comprehensive root cause analysis and proposing effective solutions. This proactive approach not only helps address immediate concerns but also contributes to ongoing process improvement and enhanced product quality.
-
-Additionally, I actively seek feedback on my work product, processes, and services, recognizing its value in achieving better quality outcomes. I am open to implementing different approaches within my scope based on the feedback received, continually striving to enhance the quality of products, services, and processes. My unwavering commitment to quality underscores my dedication to delivering excellence in all aspects of my work.
-
-I have a deep appreciation for the importance of quality in my work, and I prioritize it as a fundamental aspect of my role as a PE engineer. I am meticulous in my approach, reviewing every single nonbump report with great care to ensure the accuracy of the data provided for DVS results. I also meticulously craft requests for the units team, aiming to prevent any potential quality issues.
-
-Moreover, I actively monitor FT data, consistently identifying and highlighting any FT-related issues. When I encounter such issues, I go a step further by providing comprehensive root cause analysis and proposing effective solutions. This proactive approach not only helps address immediate concerns but also contributes to ongoing process improvement and enhanced product quality.
-
-Additionally, I actively seek feedback on my work product, processes, and services, recognizing its value in achieving better quality outcomes. I am open to implementing different approaches within my scope based on the feedback received, continually striving to enhance the quality of products, services, and processes. My unwavering commitment to quality underscores my dedication to delivering excellence in all aspects of my work.
-
-I take pride in my effective communication skills, which enable me to engage effectively with both internal and external stakeholders. In my interactions with internal teams, I prioritize clarity and simplicity, ensuring that I use straightforward language to explain product details and test requests, making it easier for the units to understand and align with our processes.
-
-When communicating with external customers, I am responsive and attentive, striving to establish a strong rapport and a deep understanding of their concerns. I work diligently to convey our company's expertise and capabilities, addressing their issues comprehensively and explaining our methods for preventing similar issues in the future.
-
-Internally, I leverage my communication skills to collaborate with junior engineers, providing them with insights into our business and offering guidance on the most effective approaches. I adapt my communication style based on the audience's level of comprehension and cultural differences, ensuring that I can effectively convey information and influence decisions in alignment with our business needs and goals.
-
-Overall, my ability to clearly articulate facts and ideas, actively listen to others to understand their perspectives, and adjust my communication style to suit different audiences underscores my commitment to effective communication, both within and outside the organization.
+pn.Row(
+        pn.Column(pn.WidgetBox(select),pn.WidgetBox(multi_select)),       
+        interactive_plot
+        ).servable()
